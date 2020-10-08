@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { counterDecrement, counterIncrement, counterSetStep } from '../actions';
 
 export const Counter = props => {
   const { value, step, increment, decrement, onStepChange } = props;
@@ -23,19 +24,10 @@ function mapStateToProps({ counter }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    increment: () =>
-      dispatch({
-        type: 'INCREMENT',
-      }),
-    decrement: () =>
-      dispatch({
-        type: 'DECREMENT',
-      }),
+    increment: () => dispatch(counterIncrement()),
+    decrement: () => dispatch(counterDecrement()),
     onStepChange: ({ target: { value } }) =>
-      dispatch({
-        type: 'SET_STEP',
-        stepValue: Number(value),
-      }),
+      dispatch(counterSetStep(Number(value))),
   };
 }
 
