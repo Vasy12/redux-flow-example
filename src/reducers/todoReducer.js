@@ -1,9 +1,63 @@
+import ACTION_TYPE from '../actions/types';
+
 const initialState = {
   tasks: [],
 };
 
+let serial = 0;
+
 function todoReducer(state = initialState, action) {
-  return state;
+  const { type } = action;
+  switch (type) {
+    case ACTION_TYPE.CREATE_TASK: {
+      const { tasks } = state;
+      const { values } = action;
+      const newTasks = [
+        ...tasks,
+        {
+          ...values,
+          id: ++serial,
+        },
+      ];
+
+      return {
+        ...state,
+        tasks: newTasks,
+      };
+    }
+
+    case ACTION_TYPE.REMOVE_TASK: {
+      const { tasks } = state;
+      const { taskIndex } = action;
+
+      const newTasks = [...tasks];
+      newTasks.splice(taskIndex, 1);
+      return {
+        ...state,
+        tasks: newTasks,
+      };
+    }
+
+    case ACTION_TYPE.UPDATE_TASK: {
+      console.log(action);
+      const { tasks } = state;
+      const { taskIndex, values } = action;
+
+      const newTasks = [...tasks];
+      newTasks[taskIndex] = {
+        ...newTasks[taskIndex],
+        ...values,
+      };
+
+      return {
+        ...state,
+        tasks: newTasks,
+      };
+    }
+
+    default:
+      return state;
+  }
 }
 
 export default todoReducer;

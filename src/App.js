@@ -1,8 +1,17 @@
 import React from 'react';
-import Counter from './components/Counter';
+import TaskForm from './components/TaskForm';
+import TasksList from './components/TasksList';
 
 function App() {
-  return <Counter />;
+  return (
+    <>
+      <hr />
+      <h2>TODO</h2>
+      <TaskForm />
+      <TasksList />
+      <hr />
+    </>
+  );
 }
 
 export default App;
